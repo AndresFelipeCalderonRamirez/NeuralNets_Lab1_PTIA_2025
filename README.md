@@ -21,6 +21,12 @@ Como resultado, se obtuvo que la derivada de la función
 
 $\frac{d}{dz} \left( \frac{1}{1 + e^{-z}} \right) = \frac{e^{-z}}{(1 + e^{-z})^2}$
 
+### Derivada función ReLU:
+
+Para hacer la derivada lo que hicimos fue que en el programa Wolfram Alpha colocamos el comando `derivative of max(0,z)`, el resultado fue el siguiente:
+
+![](img/relu.png)
+
 ### Derivada función de costo: Entropia Cruzada:
 
 Para poder hacer la derivada de la función de Entropia Cruzada, entramos a WolframAplha y usamos el comando `- D[Sum[f[x] * Log[g[x]], {i, 1, n}], x]`
