@@ -20,3 +20,9 @@ Se utilizó el siguiente comando en Wolfram Alpha para calcular la derivada de l
 Como resultado, se obtuvo que la derivada de la función
 
 $\frac{d}{dz} \left( \frac{1}{1 + e^{-z}} \right) = \frac{e^{-z}}{(1 + e^{-z})^2}$
+
+### Derivada función de costo: Entropia Cruzada:
+
+Para poder hacer la derivada de la función de Entropia Cruzada, entramos a WolframAplha y usamos el comando `- D[Sum[f[x] * Log[g[x]], {i, 1, n}], x]`
+
+![](img/Entropy.png)
