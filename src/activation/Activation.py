@@ -47,7 +47,7 @@ class Activation(ABC):
         if activation_class:
             return globals()[activation_class]()
         else:
-            raise ValueError(f"Activación '{name}' no soportada")
+            raise ValueError(f"Activation '{name}' not supported")
 
     @abstractmethod
     def value(self, x: np.ndarray) -> np.ndarray:
