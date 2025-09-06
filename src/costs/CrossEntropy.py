@@ -1,5 +1,5 @@
 import numpy as np
-from Cost import Cost
+from .Cost import Cost
 
 class CrossEntropy(Cost):
     """

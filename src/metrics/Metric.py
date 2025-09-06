@@ -17,10 +17,7 @@ class Metric(ABC):
             Computes the performance score based on the true labels and predicted outputs.
     """
 
-    # A dictionary mapping metric names (as strings) to their corresponding class names
-    metric_map = {
-        'accuracy': 'Accuracy'
-    }
+    metric_map = {}
 
     @classmethod
     def use(cls, name: str) -> "Metric":
@@ -39,7 +36,7 @@ class Metric(ABC):
         """
         metric_class = cls.metric_map.get(name.lower())
         if metric_class:
-            return globals()[metric_class]()
+            return metric_class()
         else:
             raise ValueError(f"Metric '{name}' not supported")
 

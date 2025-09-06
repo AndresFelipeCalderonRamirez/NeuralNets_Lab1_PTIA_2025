@@ -20,11 +20,7 @@ class Activation(ABC):
             Computes the derivative (gradient) of the activation function element-wise on the input.
     """
 
-    # A dictionary mapping activation function names (as strings) to their respective class names
-    activation_map = {
-        'sigmoid': 'Sigmoid',
-        'relu': 'Relu',
-    }
+    activation_map = {}
 
     @classmethod
     def use(cls, name: str) -> "Activation":
@@ -45,7 +41,7 @@ class Activation(ABC):
         """
         activation_class = cls.activation_map.get(name.lower())
         if activation_class:
-            return globals()[activation_class]()
+            return activation_class()
         else:
             raise ValueError(f"Activation '{name}' not supported")
 

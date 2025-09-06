@@ -1,5 +1,5 @@
 import numpy as np
-from Metric import Metric
+from .Metric import Metric
 
 class Accuracy(Metric):
     """

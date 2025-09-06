@@ -19,10 +19,7 @@ class Cost(ABC):
             Computes the derivative (gradient) of the cost function element-wise with respect to the predicted values.
     """
 
-    # A dictionary to map cost function names (strings) to their respective class names
-    cost_map = {
-        'cross_entropy': 'CrossEntropy',
-    }
+    cost_map = {}
 
     @classmethod
     def use(cls, name: str) -> "Cost":
@@ -43,7 +40,7 @@ class Cost(ABC):
         """
         cost_class = cls.cost_map.get(name.lower())
         if cost_class:
-            return globals()[cost_class]()
+            return cost_class()
         else:
             raise ValueError(f"Cost function '{name}' not supported")
 
