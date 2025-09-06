@@ -23,12 +23,26 @@ $\frac{d}{dz} \left( \frac{1}{1 + e^{-z}} \right) = \frac{e^{-z}}{(1 + e^{-z})^2
 
 ### Derivada función ReLU:
 
-Para hacer la derivada lo que hicimos fue que en el programa Wolfram Alpha colocamos el comando `derivative of max(0,z)`, el resultado fue el siguiente:
+Al utilizar el comando `derivative of max(0,z)`, en Wolfram Alpha, se obtiene que su derivada es:
 
-![](img/relu.png)
+![](img/relu-derivative.png)
+
+$$
+f'(z) =
+\begin{cases}
+0 & \text{si } z < 0 \\
+1 & \text{si } z > 0 \\
+\text{indefinida} & \text{si } z = 0
+\end{cases}
+$$
+
 
 ### Derivada función de costo: Entropia Cruzada:
 
-Para poder hacer la derivada de la función de Entropia Cruzada, entramos a WolframAplha y usamos el comando `- D[Sum[f[x] * Log[g[x]], {i, 1, n}], x]`
+La función de Entropía Cruzada se utiliza comúnmente en problemas de clasificación, utilizando el comando `- D[Sum[f[x] * Log[g[x]], {i, 1, n}], x]`, en Wolfram Alpha, se obtiene que su derivada es:
 
-![](img/Entropy.png)
+![](img/cross-entropy-alternative-form.png)
+
+![](img/cross-entropy-derivative.png)
+
+$\frac{n \left( g(x)^2 f''(x) \log(g(x)) + g(x) \left[ 2 f'(x) g'(x) + f(x) g''(x) \right] - f(x) g'(x)^2 \right)}{g(x)^2}$
