@@ -32,8 +32,12 @@ class CrossEntropy(Cost):
       if y.shape != yp.shape:
           raise ValueError(f"True labels and predicted probabilities must have the same shape. Got {y.shape} and {yp.shape}.")
 
-      cross_entropy_loss = (-1) * np.sum(y * np.log(yp)) / y.shape[0]
-      return cross_entropy_loss
+      eps = 1e-15
+      yp = np.clip(yp, eps, 1 - eps)
+
+      loss = -np.mean(y * np.log(yp) + (1 - y) * np.log(1 - yp))
+      return np.array([loss])
+
 
     def derivative(self, y: np.ndarray, yp: np.ndarray) -> np.ndarray:
         """
@@ -54,11 +58,8 @@ class CrossEntropy(Cost):
         if y.shape != yp.shape:
             raise ValueError(
                 f"True labels and predicted probabilities must have the same shape. Got {y.shape} and {yp.shape}.")
-        if np.any(yp <= 0) or np.any(yp >= 1):
-            raise ValueError("Predicted probabilities must be in the range (0, 1).")
 
-        n = y.shape[0]
-        numerator = - (n * yp ** 2 * np.log(yp) + yp * (2 * y * yp + y * (yp ** 2)) - y * yp ** 2)
-        denominator = yp ** 2
-        derivative = numerator / denominator
-        return derivative
+        eps = 1e-15
+        yp = np.clip(yp, eps, 1 - eps)
+
+        return -(y / yp) + (1 - y) / (1 - yp)

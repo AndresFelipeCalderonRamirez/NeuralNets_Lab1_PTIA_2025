@@ -37,4 +37,5 @@ class Sigmoid(Activation):
         Returns:
         - np.ndarray: Derivative of the Sigmoid function for each input value.
         """
-        return np.exp(-x) / (1 + np.exp(-x)) ** 2
+        s = self.value(x)
+        return s * (1 - s)
