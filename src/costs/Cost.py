@@ -2,34 +2,70 @@ import numpy as np
 from abc import ABC, abstractmethod
 
 class Cost(ABC):
-  """ Abstracta: define entradas, salidas y el comportamiento inicial de los métodos clave para cualquier función de costo
-  Representa la función de costo o error de una red neuronal
-  """
-  def use(self, name: str) -> "Cost":
-    """ obtiene función de costo (OBJ) a partir del nombre
-    Args:
-      name (str): nombre esperado de la función
-    Returns:
-      self (Cost): objeto función de costo
     """
-    return self
+    Abstract class that defines the core behavior for cost functions (error functions) in a neural network.
+    It represents the cost function (loss function) that measures the error between predicted and true values.
 
-  def value(self, Y: np.ndarray, Yp: np.ndarray) -> float:
-    """ computa la función de costo
-    Args:
-      Y (ndarray): valores de salida obtenidos
-      Yp (ndarray): valores de salida esperados
-    Returns:
-      S (float): valor de computo de la función de costo
-    """
-    pass
+    This class uses the Factory Design Pattern to dynamically create cost function objects based on a string input.
 
-  def derivative(self, Y: np.ndarray, Yp: np.ndarray) -> np.ndarray:
-    """ computa la derivada de la función de costo (gradiente) <elemento por elemento>
-    Args:
-      Y (ndarray): valores de salida obtenidos
-      Yp (ndarray): valores de salida esperados
-    Returns:
-      ∇E(X) (ndarray): valores para la derivada de función de costo
+    Methods:
+        use(cls, name: str) -> "Cost":
+            Given the name of a cost function, it returns an instance of the corresponding cost function class.
+
+        value(self, y: np.ndarray, yp: np.ndarray) -> float:
+            Computes the cost (error) between the true and predicted values.
+
+        derivative(self, y: np.ndarray, yp: np.ndarray) -> np.ndarray:
+            Computes the derivative (gradient) of the cost function element-wise with respect to the predicted values.
     """
-    pass
+
+    cost_map = {}
+
+    @classmethod
+    def use(cls, name: str) -> "Cost":
+        """
+        Returns the cost function object based on the provided name.
+
+        This method implements the Factory Design Pattern, dynamically creating and returning
+        an instance of the corresponding cost function class (e.g., `MeanSquaredError`, `CrossEntropy`).
+
+        Args:
+            name (str): The name of the cost function (e.g., 'mse', 'cross_entropy').
+
+        Returns:
+            Cost: An instance of the corresponding cost function class.
+
+        Raises:
+            ValueError: If the provided name doesn't match any known cost functions.
+        """
+        cost_class = cls.cost_map.get(name.lower())
+        if cost_class:
+            return cost_class()
+        else:
+            raise ValueError(f"Cost function '{name}' not supported")
+
+    @abstractmethod
+    def value(self, y: np.ndarray, yp: np.ndarray) -> float:
+        """
+        Computes the cost function value (error) between true values and predicted values.
+
+        Args:
+            y (np.ndarray): The true values (targets).
+            yp (np.ndarray): The predicted values.
+        Returns:
+            float: The computed cost (error) between true and predicted values.
+        """
+        pass
+
+    @abstractmethod
+    def derivative(self, y: np.ndarray, yp: np.ndarray) -> np.ndarray:
+        """
+        Computes the derivative (gradient) of the cost function element-wise with respect to the predicted values.
+
+        Args:
+            y (np.ndarray): The true values (targets).
+            yp (np.ndarray): The predicted values.
+        Returns:
+            np.ndarray: The derivative (gradient) of the cost function with respect to the predicted values.
+        """
+        pass
